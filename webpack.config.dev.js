@@ -1,34 +1,31 @@
+// Aqui vamos a especificar las caracteristicas que tomen nuestro diferentes modos 
+// Aqui se configurará el modo de desarrollo
+
 // Este archivo va a ser nuestro recurso, principal, en el vamos a trabajar todas las configuraciones que se van 
 // añadir a nuestro proyecyo como los loaders y plugins, etc
 
-// La constante path va a utilizar un require que nos va a ayudar a traer este elemento 'path'
+// // La constante path va a utilizar un require que nos va a ayudar a traer este elemento 'path'
 const path = require('path');
 
-//La constante HtmlWebpackPlugin va a requerir el plugin del webpack para html
+// //La constante HtmlWebpackPlugin va a requerir el plugin del webpack para html
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-//La constante HtmlWebpackPlugin va a requerir el plugin del webpack para html
+// //La constante HtmlWebpackPlugin va a requerir el plugin del webpack para html
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-//La constante va a requerir el plugin para copiar nuestros recursos al dist
+// //La constante va a requerir el plugin para copiar nuestros recursos al dist
 const CopyPlugin = require('copy-webpack-plugin');
 
-//La constante va a requerir el plugin para optimizar y minificar nuestro css
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const TerserPlugin = require('terser-webpack-plugin');
 
-//La constante va a requerir el plugin para utilizar nuestras variables de entorno
 const Dotenv = require('dotenv-webpack')
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 
-
-// Vamos a crear un modulo que vamos a exportar con un objeto con la configuracion 
+// // Vamos a crear un modulo que vamos a exportar con un objeto con la configuracion 
 module.exports = {
 
-  // entry nos va a permitir cual es el punto de entrada que va a utilizar nuestra aplicacion
+//   // entry nos va a permitir cual es el punto de entrada que va a utilizar nuestra aplicacion
   entry: './src/index.js',
 
 // output es hacia donde vamos a enviar lo que va a preparar webpack, usaremos un objeto vamos 
@@ -43,6 +40,16 @@ module.exports = {
     assetModuleFilename: 'assets/images/[hash][ext][query]'
   },
 
+//   Especificamos el modo que se va a generar
+  mode: 'development',
+
+  //Este webpack watch sirve para que este atento a cualquier cambio que se haga
+  // en el proyecto y lo compile automaticamente uan vez que se guarde, otra manera
+  //De activarlo es desde el script del packaga-json
+  watch: true,    
+  
+
+
 //   // Ahora pasamos con que extensiones vamos a trabajar en este proyecto
   resolve: {
 
@@ -54,10 +61,10 @@ module.exports = {
     // y practicas, el alias sera un objeto donde vamos a estableces cada configuracion
     alias: {
       //El arroba antes es para identificarlo como un alias
-      '@utils': path.resolve(__dirname, 'src/utils/'),
+      '@utils':     path.resolve(__dirname, 'src/utils/'),
       '@templates': path.resolve(__dirname, 'src/templates/'),
-      '@styles': path.resolve(__dirname, 'src/styles/'),
-      '@images': path.resolve(__dirname, 'src/assets/images/'),
+      '@styles':    path.resolve(__dirname, 'src/styles/'),
+      '@images':    path.resolve(__dirname, 'src/assets/images/'),
     }
 
 
@@ -155,14 +162,8 @@ module.exports = {
 
     }),
     new Dotenv(),
-    new CleanWebpackPlugin(),
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin(),
-    ]
-  }
+  
 }
+
 
